@@ -15,7 +15,7 @@ namespace Agenda.BLL
         }
 
         public MemoryExampleBusiness(List<Example> lstExample)
-        {
+        {            
             this.lstExample = lstExample;
         }
 
@@ -26,21 +26,23 @@ namespace Agenda.BLL
 
         public List<Example> GetListExampleByFilter(ExampleFilter exampleFilter)
         {
-            if (exampleFilter != null)
+            if (!string.IsNullOrEmpty(exampleFilter.value))
             {
-                //return this.lstExample.Single(p => p.value.Equals(exampleFilter.value));
-                return this.lstExample;
+                return this.lstExample.FindAll(p => p.value.Contains(exampleFilter.value)).OrderBy(p => p.id).ToList();                
             }
             else 
             {
-                return this.lstExample;
+                return this.lstExample.OrderBy(p => p.id).ToList();
             }
         }
 
-        public void Insert(Example example)
+        public Example Insert(Example example)
         {            
-            int max = this.lstExample.OrderByDescending(x => x.id).First().id.Value;                        
+            int max = this.lstExample.OrderByDescending(x => x.id).First().id.Value;
+            example.id = (max + 1);
             this.lstExample.Add(example);
+
+            return example;
         }
 
         public void Update(Example example)
@@ -51,7 +53,11 @@ namespace Agenda.BLL
 
         public void Delete(Example example)
         {
-            this.lstExample.Remove(example);
+            Example exampleDelete = this.lstExample.Find(p => p.id.Equals(example.id));
+            if (example != null)
+            { 
+                this.lstExample.Remove(exampleDelete);
+            }
         }
 
     }

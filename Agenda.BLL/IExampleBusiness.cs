@@ -7,7 +7,7 @@ namespace Agenda.BLL
     {        
         Example GetExampleByID(Example example);
         List<Example> GetListExampleByFilter(ExampleFilter exampleFilter);
-        void Insert(Example example);
+        Example Insert(Example example);
         void Update(Example example);
         void Delete(Example example);
     }

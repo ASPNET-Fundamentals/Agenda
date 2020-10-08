@@ -19,13 +19,13 @@ namespace Agenda.Site
 
         
             List<Entity.Example> lstExample = new List<Entity.Example>();
-            for (int i = 0; i <= 10; i++)
+            for (int i = 1; i < 11; i++)
             {
                 lstExample.Add
                 (
                     new Entity.Example 
                     { 
-                        id = (i + 1),
+                        id = i,
                         value = string.Concat("example", i.ToString()) 
                     }
                 );
